@@ -205,7 +205,7 @@ sequenceDiagram
         AG-->>BG: 规划拒绝/成本/取消消息（运行终止）
     end
     AG->>AG: getToolsForMode 组装工具表 (L25218)
-    loop_var "while (steps < maxSteps=130) (L25385)"
+    loop "while (steps < maxSteps=130) (L25385)"
         AG->>AG: _checkAbort + 适配器重注入 + 重建工具表 + _manageContext (L25387-25423)
         AG->>LLM: chatMainTurn → _chatStreamWithCostAllowance / _chatWithCostAllowance (L25451)
         LLM-->>AG: {content, toolCalls, usage}
@@ -317,9 +317,9 @@ stateDiagram-v2
     ToolPhase --> PreCheck : BatchResult = continue
     ToolPhase --> Terminated : return/deliver/recover/abort
     FinalPhase --> PreCheck : 守卫链要求继续（澄清/账本/plan-only）
-    FinalPhase --> Termined2 : 真正最终答案
+    FinalPhase --> Terminated2 : 真正最终答案
     Terminated --> [*]
-    Termined2 --> [*]
+    Terminated2 --> [*]
 ```
 
 ### 4.3 Plan 状态机（`planner.js` + `_waitForPlanReview` L9552）
